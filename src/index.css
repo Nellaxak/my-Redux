@@ -1,0 +1,200 @@
+/*верстка нужна чтобы быстрее отрисовывалось браузером*/
+body {
+  font-family: Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: white;
+  user-select: none;
+  font-size: 1em;
+}
+
+:root {
+  --recommended-button-size: 18px;
+  --gap: 6px;
+  --upper-width: 0%;
+  --pointer-position: 0%;
+}
+
+/*form controls*/
+input,
+button {
+  letter-spacing: initial;
+  word-spacing: initial;
+  line-height: initial;
+  text-transform: initial;
+  text-indent: initial;
+  text-shadow: initial;
+  appearance: auto;
+}
+
+input {
+  text-align: initial;
+}
+
+button {
+  text-align: center;
+}
+
+input,
+button {
+  display: inline-block;
+}
+
+button {
+  box-sizing: border-box;
+}
+
+.app {
+  position: relative;
+}
+
+.count__button_hover:hover {
+  cursor: pointer;
+}
+
+.count__button {
+  appearance: none;
+  border: 1px solid grey;
+  border-radius: 3px;
+  height: var(--recommended-button-size);
+  vertical-align: top;
+  /*нужно только для кнопки внутри липкого контейнера,
+  иначе чуть смещается вниз*/
+}
+
+.step__label {
+  display: flex;
+  grid-column: 1/1;
+  gap: var(--gap);
+}
+
+/*при наведении на legend, чтобы срабатывало как метка, т.к. кнопок 2, привязка метки по id, 
+срабатывает только на первой кнопке (-)
+*/
+.fieldset:has(.label-count_hover:hover)>.count>.count__button,
+.fieldset:has(.label-count_hover:hover)>.count>.count__sticky-container>.count__button {
+  background-color: rgb(203, 203, 203);
+}
+
+.step__input-range {
+  width: 133px;
+  height: 12px;
+}
+
+.step__input-range_hover:hover {
+  cursor: ew-resize;
+}
+
+.fieldset {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+/*при изменении разрядности возникает сдвиг макета, при нецелом значении шага (step=any) 
+input type range, 
+*/
+.count__sticky-container {
+  position: relative;
+}
+
+.step {
+  display: grid;
+  grid-template-rows: 16px 20px;
+  grid-template-columns: 184px auto;
+  grid-column-gap: var(--gap);
+}
+
+.count {
+  display: grid;
+  grid-template-columns: var(--recommended-button-size) auto;
+  grid-template-rows: var(--recommended-button-size);
+  grid-column-gap: var(--gap);
+}
+
+.count__sticky-container-output {
+  padding-right: var(--gap);
+}
+
+.count__sticky-container-output+.count__button {
+  width: var(--recommended-button-size);
+  position: sticky;
+  right: 0;
+}
+
+.count__text {
+  /*чтобы клик срабытывал только на кнопке, не на span внутри кнопки*/
+  pointer-events: none;
+}
+
+.wrapper {
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.righttrack {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  /*margin collapse*/
+  height: 8px;
+  width: 132px;
+  border-radius: 4px;
+  /*var(--slider-width);not work*/
+  /*фон в 2 раза длиннее, без сдвига только серая часть, фон-2 прямоугольника серый, голубой */
+  background-image: linear-gradient(to right, lightgray 50%, blue 50%);
+  background-size: 200%;
+  background-position: var(--pointer-position);
+  transition: background-position 0.3s linear;
+}
+
+.thumb {
+  position: relative;
+  /*margin-top: -4px;*/
+  height: 16px;
+  width: 0px;
+  background-color: red;
+  border-width: 0;
+  z-index: 1;
+  transform: translateX(var(--pointer-position));
+  transition: transform 0.3s linear;
+}
+
+/*полукруг до и после thumb*/
+.thumb::after {
+  display: block;
+  /*чтобы width можно было задать*/
+  content: '';
+  background-color: red;
+  height: 100%;
+  width: 8px;
+  border-radius: 0px 8px 8px 0px;
+}
+
+/*before занимает ширину тоже, переполнение контейнера => float*/
+.thumb::before {
+  display: block;
+  content: '';
+  background-color: red;
+  height: 100%;
+  width: 8px;
+  border-radius: 8px 0px 0px 8px;
+  float: right;
+}
