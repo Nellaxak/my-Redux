@@ -5,12 +5,12 @@ const reducer = (state = defaultState, action) => {
   const { type, payload } = action;
   switch (type) {
     case UPDATE_COUNTER:
-      state.count.append(
-        state.count.tail.value + state.step.tail.value * payload
-      );
+      state.count.data = {
+        value: state.count.data.value + state.step.data.value * payload,
+      };
       return { ...state };
     case CHANGE_STEP_SIZE:
-      state.step.append(payload);
+      state.step.data = { value: payload };
       return { ...state };
     default:
       return { ...state };
