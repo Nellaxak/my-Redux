@@ -1,10 +1,8 @@
-import { LinkedList } from './LinkedList';
 //т.к.сравнение в useSelector по ссылке, а не по значение,
 //count и step должны быть ссылочными типами-объектами
-const createDataNode = (startValue) => {
-  const list = new LinkedList();
-  list.append(startValue);
-  return list;
+const createDataNode = (value) => {
+  const data = { data: { value } };
+  return data;
 };
 const objCount = createDataNode(0);
 const objStep = createDataNode(1);
