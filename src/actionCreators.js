@@ -5,9 +5,7 @@ export const updateCounter = (value) => ({
   payload: value,
 });
 
-export const changeStepSize = (value) => {
-  return {
+export const changeStepSize = (value) => ({
     type: CHANGE_STEP_SIZE,
     payload: value,
-  };
-};
+});
